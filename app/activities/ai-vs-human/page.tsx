@@ -256,110 +256,122 @@ export default function AIvsHumanPage() {
   // Start Screen
   if (!gameStarted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50">
-        <header className="border-b border-cyan-200/50 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-          <div className="container mx-auto px-4 py-3">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors text-sm"
+      <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50 flex flex-col">
+        <div className="flex items-center justify-between px-6 py-3 bg-white/40 backdrop-blur-sm border-b border-cyan-200">
+          <Link href="/" className="flex items-center gap-2 text-cyan-600 hover:text-cyan-700 transition-colors">
+            <ArrowLeft size={20} />
+            <span className="font-medium">Back to Home</span>
+          </Link>
+          {!gameStarted && !gameOver && (
+            <Button
+              onClick={() => {
+                setGameStarted(false)
+                setCurrentScenario(0)
+                setScore(0)
+              }}
+              variant="outline"
+              size="sm"
+              className="gap-2"
             >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
-            </Link>
+              <RefreshCw size={16} />
+              Restart
+            </Button>
+          )}
+        </div>
+
+        <div className="flex-1 flex items-center justify-center px-4 py-6">
+          <div className="w-full max-w-2xl">
+            <Card className="max-w-4xl w-full bg-white/95 backdrop-blur-sm border-cyan-200/50 rounded-3xl shadow-xl">
+              <CardHeader className="text-center space-y-2 pb-4">
+                <div className="text-5xl">🤖❤️</div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  AI vs Human
+                </h1>
+                <p className="text-sm text-slate-600">Discover how AI thinks differently from humans!</p>
+              </CardHeader>
+              <CardContent className="space-y-4 pt-0">
+                <div className="grid md:grid-cols-2 gap-3">
+                  {/* Humans Card */}
+                  <div className="bg-gradient-to-br from-pink-50 to-red-50 rounded-2xl p-4 border-4 border-pink-300">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Heart className="w-6 h-6 text-pink-600" />
+                      <h3 className="text-lg font-bold text-pink-700">HUMANS</h3>
+                    </div>
+                    <ul className="space-y-1 text-xs text-slate-700">
+                      <li className="flex items-center gap-2">
+                        <span>💭</span>
+                        <span>Have emotions and feelings</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span>❤️</span>
+                        <span>Can truly care and empathize</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span>🎨</span>
+                        <span>Creative and imaginative</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span>🌟</span>
+                        <span>Understand context and culture</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* AI Card */}
+                  <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-4 border-4 border-blue-300">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Brain className="w-6 h-6 text-blue-600" />
+                      <h3 className="text-lg font-bold text-blue-700">AI</h3>
+                    </div>
+                    <ul className="space-y-1 text-xs text-slate-700">
+                      <li className="flex items-center gap-2">
+                        <span>🔢</span>
+                        <span>Uses math and patterns</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span>⚡</span>
+                        <span>Super fast at calculations</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span>♾️</span>
+                        <span>Never gets tired</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span>📊</span>
+                        <span>Learns from data/examples</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-4 border-4 border-yellow-300">
+                  <h3 className="text-sm font-bold text-yellow-700 mb-2">How to Play:</h3>
+                  <ul className="space-y-1 text-xs text-slate-700">
+                    <li className="flex items-center gap-2">
+                      <span>🎯</span>
+                      <span>Read real-life scenarios</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span>🤔</span>
+                      <span>See how HUMANS vs AI approach the problem</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span>✨</span>
+                      <span>Guess which approach works best!</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <Button
+                  onClick={handleStart}
+                  className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white py-4 text-sm font-bold rounded-2xl shadow-lg"
+                >
+                  Start Exploring 🚀
+                </Button>
+              </CardContent>
+            </Card>
           </div>
-        </header>
-
-        <main className="container mx-auto px-4 py-4">
-          <Card className="max-w-4xl w-full bg-white/95 backdrop-blur-sm border-cyan-200/50 rounded-3xl shadow-xl">
-            <CardHeader className="text-center space-y-2 pb-4">
-              <div className="text-5xl">🤖❤️</div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                AI vs Human
-              </h1>
-              <p className="text-sm text-slate-600">Discover how AI thinks differently from humans!</p>
-            </CardHeader>
-            <CardContent className="space-y-4 pt-0">
-              <div className="grid md:grid-cols-2 gap-3">
-                {/* Humans Card */}
-                <div className="bg-gradient-to-br from-pink-50 to-red-50 rounded-2xl p-4 border-4 border-pink-300">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Heart className="w-6 h-6 text-pink-600" />
-                    <h3 className="text-lg font-bold text-pink-700">HUMANS</h3>
-                  </div>
-                  <ul className="space-y-1 text-xs text-slate-700">
-                    <li className="flex items-center gap-2">
-                      <span>💭</span>
-                      <span>Have emotions and feelings</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span>❤️</span>
-                      <span>Can truly care and empathize</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span>🎨</span>
-                      <span>Creative and imaginative</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span>🌟</span>
-                      <span>Understand context and culture</span>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* AI Card */}
-                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-4 border-4 border-blue-300">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Brain className="w-6 h-6 text-blue-600" />
-                    <h3 className="text-lg font-bold text-blue-700">AI</h3>
-                  </div>
-                  <ul className="space-y-1 text-xs text-slate-700">
-                    <li className="flex items-center gap-2">
-                      <span>🔢</span>
-                      <span>Uses math and patterns</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span>⚡</span>
-                      <span>Super fast at calculations</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span>♾️</span>
-                      <span>Never gets tired</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span>📊</span>
-                      <span>Learns from data/examples</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl p-4 border-4 border-yellow-300">
-                <h3 className="text-sm font-bold text-yellow-700 mb-2">How to Play:</h3>
-                <ul className="space-y-1 text-xs text-slate-700">
-                  <li className="flex items-center gap-2">
-                    <span>🎯</span>
-                    <span>Read real-life scenarios</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span>🤔</span>
-                    <span>See how HUMANS vs AI approach the problem</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span>✨</span>
-                    <span>Guess which approach works best!</span>
-                  </li>
-                </ul>
-              </div>
-
-              <Button
-                onClick={handleStart}
-                className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white py-4 text-sm font-bold rounded-2xl shadow-lg"
-              >
-                Start Exploring 🚀
-              </Button>
-            </CardContent>
-          </Card>
-        </main>
+        </div>
       </div>
     )
   }
@@ -372,213 +384,237 @@ export default function AIvsHumanPage() {
       percentage >= 80 ? "🏆 AI Expert!" : percentage >= 60 ? "⭐ Great Learner!" : "💪 Keep Exploring!"
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 via-yellow-50 to-orange-50">
-        <header className="border-b border-cyan-200/50 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-          <div className="container mx-auto px-4 py-3">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors text-sm"
+      <div className="min-h-screen bg-gradient-to-br from-green-50 via-yellow-50 to-orange-50 flex flex-col">
+        <div className="flex items-center justify-between px-6 py-3 bg-white/40 backdrop-blur-sm border-b border-cyan-200">
+          <Link href="/" className="flex items-center gap-2 text-cyan-600 hover:text-cyan-700 transition-colors">
+            <ArrowLeft size={20} />
+            <span className="font-medium">Back to Home</span>
+          </Link>
+          {!gameStarted && !gameOver && (
+            <Button
+              onClick={() => {
+                setGameStarted(false)
+                setCurrentScenario(0)
+                setScore(0)
+              }}
+              variant="outline"
+              size="sm"
+              className="gap-2"
             >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
-            </Link>
+              <RefreshCw size={16} />
+              Restart
+            </Button>
+          )}
+        </div>
+
+        <div className="flex-1 flex items-center justify-center px-4 py-6">
+          <div className="w-full max-w-2xl">
+            <Card className="max-w-2xl w-full bg-white/95 backdrop-blur-sm border-cyan-200/50 rounded-3xl shadow-xl mx-auto">
+              <CardContent className="text-center space-y-3 pt-6 pb-6">
+                <div className="text-4xl animate-bounce">🏆</div>
+                <h1 className="text-2xl font-bold text-slate-900">Learning Complete!</h1>
+                <div className="bg-gradient-to-r from-teal-100 to-cyan-100 rounded-2xl p-4 border-4 border-teal-300">
+                  <p className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-cyan-600">
+                    {score}
+                  </p>
+                  <p className="text-xs text-slate-600">
+                    out of {maxScore} points ({percentage}%)
+                  </p>
+                  <p className="text-lg font-bold text-slate-700 mt-2">{performance}</p>
+                </div>
+
+                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-4 border-4 border-blue-300 text-left">
+                  <h3 className="text-sm font-bold text-blue-700 mb-2">Key Takeaways:</h3>
+                  <ul className="text-xs text-slate-700 space-y-1">
+                    <li>✓ AI uses PATTERNS and MATH, not emotions</li>
+                    <li>✓ Humans have FEELINGS, empathy, and creativity</li>
+                    <li>✓ AI is FAST at repetitive tasks with clear rules</li>
+                    <li>✓ Humans understand CONTEXT, culture, and humor</li>
+                    <li>✓ Both have strengths - they work best TOGETHER!</li>
+                  </ul>
+                </div>
+
+                <Button
+                  onClick={handleReset}
+                  className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white py-4 text-sm font-bold rounded-2xl shadow-lg flex items-center justify-center gap-2"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                  Explore Again
+                </Button>
+              </CardContent>
+            </Card>
           </div>
-        </header>
-
-        <main className="container mx-auto px-4 py-4">
-          <Card className="max-w-2xl w-full bg-white/95 backdrop-blur-sm border-cyan-200/50 rounded-3xl shadow-xl mx-auto">
-            <CardContent className="text-center space-y-3 pt-6 pb-6">
-              <div className="text-4xl animate-bounce">🏆</div>
-              <h1 className="text-2xl font-bold text-slate-900">Learning Complete!</h1>
-              <div className="bg-gradient-to-r from-teal-100 to-cyan-100 rounded-2xl p-4 border-4 border-teal-300">
-                <p className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-cyan-600">
-                  {score}
-                </p>
-                <p className="text-xs text-slate-600">
-                  out of {maxScore} points ({percentage}%)
-                </p>
-                <p className="text-lg font-bold text-slate-700 mt-2">{performance}</p>
-              </div>
-
-              <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-4 border-4 border-blue-300 text-left">
-                <h3 className="text-sm font-bold text-blue-700 mb-2">Key Takeaways:</h3>
-                <ul className="text-xs text-slate-700 space-y-1">
-                  <li>✓ AI uses PATTERNS and MATH, not emotions</li>
-                  <li>✓ Humans have FEELINGS, empathy, and creativity</li>
-                  <li>✓ AI is FAST at repetitive tasks with clear rules</li>
-                  <li>✓ Humans understand CONTEXT, culture, and humor</li>
-                  <li>✓ Both have strengths - they work best TOGETHER!</li>
-                </ul>
-              </div>
-
-              <Button
-                onClick={handleReset}
-                className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white py-4 text-sm font-bold rounded-2xl shadow-lg flex items-center justify-center gap-2"
-              >
-                <RefreshCw className="w-4 h-4" />
-                Explore Again
-              </Button>
-            </CardContent>
-          </Card>
-        </main>
+        </div>
       </div>
     )
   }
 
   // Game Screen
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50">
-      <header className="border-b border-cyan-200/50 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors text-sm"
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-cyan-100 flex flex-col">
+      <div className="flex items-center justify-between px-6 py-3 bg-white/40 backdrop-blur-sm border-b border-cyan-200">
+        <Link href="/" className="flex items-center gap-2 text-cyan-600 hover:text-cyan-700 transition-colors">
+          <ArrowLeft size={20} />
+          <span className="font-medium">Back to Home</span>
+        </Link>
+        {!gameStarted && !gameOver && (
+          <Button
+            onClick={() => {
+              setGameStarted(false)
+              setCurrentScenario(0)
+              setScore(0)
+            }}
+            variant="outline"
+            size="sm"
+            className="gap-2"
           >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Link>
-        </div>
-      </header>
+            <RefreshCw size={16} />
+            Restart
+          </Button>
+        )}
+      </div>
 
-      <main className="container mx-auto px-4 py-3 max-w-5xl">
-        {/* Progress Header */}
-        <Card className="mb-3 bg-white/90 backdrop-blur-sm border-cyan-200/50 rounded-2xl">
-          <CardContent className="flex items-center justify-between p-4">
-            <div className="text-center">
-              <p className="text-xs text-slate-600">Scenario</p>
-              <p className="text-lg font-bold text-teal-600">
-                {currentScenario + 1}/{scenarios.length}
-              </p>
-            </div>
-            <div className="flex-1 h-2 mx-3 bg-slate-200 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-teal-500 to-cyan-600 transition-all duration-300"
-                style={{ width: `${((currentScenario + 1) / scenarios.length) * 100}%` }}
-              />
-            </div>
-            <div className="text-center">
-              <p className="text-xs text-slate-600">Score</p>
-              <p className="text-lg font-bold text-amber-600">{score}</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Scenario Card */}
-        <Card className="mb-3 bg-white/95 backdrop-blur-sm border-cyan-200/50 rounded-3xl shadow-lg">
-          <CardContent className="p-5 space-y-4">
-            <div className="text-center space-y-2">
-              <div className="text-5xl">{currentScenarioData.icon}</div>
-              <h2 className="text-2xl font-bold text-slate-900">Scenario:</h2>
-              <p className="text-base text-slate-700">{currentScenarioData.situation}</p>
-              <p className="text-xs text-slate-600 italic">{currentScenarioData.question}</p>
-            </div>
-
-            {/* Human vs AI Comparison */}
-            <div className="grid md:grid-cols-2 gap-3">
-              {/* Human Way */}
-              <div
-                className={`rounded-2xl p-4 border-4 cursor-pointer transition-all ${
-                  selectedMode === "human"
-                    ? "border-pink-500 bg-pink-50 shadow-lg"
-                    : "border-pink-200 bg-pink-50/50 hover:border-pink-300"
-                }`}
-                onClick={() => handleModeSelect("human")}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <Heart className="w-5 h-5 text-pink-600" />
-                  <h3 className="font-bold text-pink-700 text-sm">HUMAN Way</h3>
-                </div>
-                <div className="space-y-1 mb-3">
-                  {currentScenarioData.humanWay.process.map((step, i) => (
-                    <p key={i} className="text-xs text-slate-700">
-                      {i + 1}. {step}
-                    </p>
-                  ))}
-                </div>
-                <div className="bg-white rounded-lg p-2 border-2 border-pink-200 mb-2">
-                  <p className="font-bold text-pink-700 text-xs">{currentScenarioData.humanWay.answer}</p>
-                </div>
-                <div className="flex flex-wrap gap-1">
-                  {currentScenarioData.humanWay.traits.map((trait, i) => (
-                    <span key={i} className="text-xs bg-pink-200 text-pink-700 rounded px-2 py-1">
-                      {trait}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* AI Way */}
-              <div
-                className={`rounded-2xl p-4 border-4 cursor-pointer transition-all ${
-                  selectedMode === "ai"
-                    ? "border-blue-500 bg-blue-50 shadow-lg"
-                    : "border-blue-200 bg-blue-50/50 hover:border-blue-300"
-                }`}
-                onClick={() => handleModeSelect("ai")}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <Brain className="w-5 h-5 text-blue-600" />
-                  <h3 className="font-bold text-blue-700 text-sm">AI Way</h3>
-                </div>
-                <div className="space-y-1 mb-3">
-                  {currentScenarioData.aiWay.process.map((step, i) => (
-                    <p key={i} className="text-xs text-slate-700">
-                      {i + 1}. {step}
-                    </p>
-                  ))}
-                </div>
-                <div className="bg-white rounded-lg p-2 border-2 border-blue-200 mb-2">
-                  <p className="font-bold text-blue-700 text-xs">{currentScenarioData.aiWay.answer}</p>
-                </div>
-                <div className="flex flex-wrap gap-1">
-                  {currentScenarioData.aiWay.traits.map((trait, i) => (
-                    <span key={i} className="text-xs bg-blue-200 text-blue-700 rounded px-2 py-1">
-                      {trait}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {!showFeedback && (
-              <Button
-                onClick={handleSubmit}
-                disabled={!selectedMode}
-                className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 disabled:opacity-50 text-white font-bold rounded-xl py-2 text-sm"
-              >
-                Check Answer ✓
-              </Button>
-            )}
-
-            {showFeedback && (
-              <div className="space-y-3 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-4 border-4 border-yellow-300">
-                <div
-                  className={`text-center ${
-                    currentScenarioData.correctMode === "both" || currentScenarioData.correctMode === selectedMode
-                      ? "text-green-600"
-                      : "text-orange-600"
-                  }`}
-                >
-                  <p className="text-lg font-bold">
-                    {currentScenarioData.correctMode === "both" || currentScenarioData.correctMode === selectedMode
-                      ? "✓ Great!"
-                      : "Not quite..."}
-                  </p>
-                </div>
-                <p className="text-center text-xs text-slate-700 font-semibold italic">
-                  {currentScenarioData.explanation}
+      <div className="flex-1 flex items-center justify-center px-4 py-6">
+        <div className="w-full max-w-2xl">
+          {/* Progress Header */}
+          <Card className="mb-3 bg-white/90 backdrop-blur-sm border-cyan-200/50 rounded-2xl">
+            <CardContent className="flex items-center justify-between p-4">
+              <div className="text-center">
+                <p className="text-xs text-slate-600">Scenario</p>
+                <p className="text-lg font-bold text-teal-600">
+                  {currentScenario + 1}/{scenarios.length}
                 </p>
-                <Button
-                  onClick={handleNext}
-                  className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white font-bold rounded-xl py-2 text-sm"
-                >
-                  {currentScenario < scenarios.length - 1 ? "Next Scenario →" : "See Results 🏆"}
-                </Button>
               </div>
-            )}
-          </CardContent>
-        </Card>
-      </main>
+              <div className="flex-1 h-2 mx-3 bg-slate-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-teal-500 to-cyan-600 transition-all duration-300"
+                  style={{ width: `${((currentScenario + 1) / scenarios.length) * 100}%` }}
+                />
+              </div>
+              <div className="text-center">
+                <p className="text-xs text-slate-600">Score</p>
+                <p className="text-lg font-bold text-amber-600">{score}</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Scenario Card */}
+          <Card className="mb-3 bg-white/95 backdrop-blur-sm border-cyan-200/50 rounded-3xl shadow-lg">
+            <CardContent className="p-5 space-y-4">
+              <div className="text-center space-y-2">
+                <div className="text-5xl">{currentScenarioData.icon}</div>
+                <h2 className="text-2xl font-bold text-slate-900">Scenario:</h2>
+                <p className="text-base text-slate-700">{currentScenarioData.situation}</p>
+                <p className="text-xs text-slate-600 italic">{currentScenarioData.question}</p>
+              </div>
+
+              {/* Human vs AI Comparison */}
+              <div className="grid md:grid-cols-2 gap-3">
+                {/* Human Way */}
+                <div
+                  className={`rounded-2xl p-4 border-4 cursor-pointer transition-all ${
+                    selectedMode === "human"
+                      ? "border-pink-500 bg-pink-50 shadow-lg"
+                      : "border-pink-200 bg-pink-50/50 hover:border-pink-300"
+                  }`}
+                  onClick={() => handleModeSelect("human")}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Heart className="w-5 h-5 text-pink-600" />
+                    <h3 className="font-bold text-pink-700 text-sm">HUMAN Way</h3>
+                  </div>
+                  <div className="space-y-1 mb-3">
+                    {currentScenarioData.humanWay.process.map((step, i) => (
+                      <p key={i} className="text-xs text-slate-700">
+                        {i + 1}. {step}
+                      </p>
+                    ))}
+                  </div>
+                  <div className="bg-white rounded-lg p-2 border-2 border-pink-200 mb-2">
+                    <p className="font-bold text-pink-700 text-xs">{currentScenarioData.humanWay.answer}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {currentScenarioData.humanWay.traits.map((trait, i) => (
+                      <span key={i} className="text-xs bg-pink-200 text-pink-700 rounded px-2 py-1">
+                        {trait}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* AI Way */}
+                <div
+                  className={`rounded-2xl p-4 border-4 cursor-pointer transition-all ${
+                    selectedMode === "ai"
+                      ? "border-blue-500 bg-blue-50 shadow-lg"
+                      : "border-blue-200 bg-blue-50/50 hover:border-blue-300"
+                  }`}
+                  onClick={() => handleModeSelect("ai")}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Brain className="w-5 h-5 text-blue-600" />
+                    <h3 className="font-bold text-blue-700 text-sm">AI Way</h3>
+                  </div>
+                  <div className="space-y-1 mb-3">
+                    {currentScenarioData.aiWay.process.map((step, i) => (
+                      <p key={i} className="text-xs text-slate-700">
+                        {i + 1}. {step}
+                      </p>
+                    ))}
+                  </div>
+                  <div className="bg-white rounded-lg p-2 border-2 border-blue-200 mb-2">
+                    <p className="font-bold text-blue-700 text-xs">{currentScenarioData.aiWay.answer}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {currentScenarioData.aiWay.traits.map((trait, i) => (
+                      <span key={i} className="text-xs bg-blue-200 text-blue-700 rounded px-2 py-1">
+                        {trait}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {!showFeedback && (
+                <Button
+                  onClick={handleSubmit}
+                  disabled={!selectedMode}
+                  className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 disabled:opacity-50 text-white font-bold rounded-xl py-2 text-sm"
+                >
+                  Check Answer ✓
+                </Button>
+              )}
+
+              {showFeedback && (
+                <div className="space-y-3 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-4 border-4 border-yellow-300">
+                  <div
+                    className={`text-center ${
+                      currentScenarioData.correctMode === "both" || currentScenarioData.correctMode === selectedMode
+                        ? "text-green-600"
+                        : "text-orange-600"
+                    }`}
+                  >
+                    <p className="text-lg font-bold">
+                      {currentScenarioData.correctMode === "both" || currentScenarioData.correctMode === selectedMode
+                        ? "✓ Great!"
+                        : "Not quite..."}
+                    </p>
+                  </div>
+                  <p className="text-center text-xs text-slate-700 font-semibold italic">
+                    {currentScenarioData.explanation}
+                  </p>
+                  <Button
+                    onClick={handleNext}
+                    className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white font-bold rounded-xl py-2 text-sm"
+                  >
+                    {currentScenario < scenarios.length - 1 ? "Next Scenario →" : "See Results 🏆"}
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   )
 }
